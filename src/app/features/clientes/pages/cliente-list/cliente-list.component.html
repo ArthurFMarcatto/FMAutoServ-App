@@ -1,0 +1,96 @@
+<section class="page-header">
+  <h1>Clientes</h1>
+
+  <a routerLink="/clientes/novo" class="btn-primary">
+    Cadastrar Cliente
+  </a>
+</section>
+
+<div class="search-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Pesquisar por nome" 
+    (keyup.enter)="pesquisar()"/>
+
+  <button type="button" class="btn-search" (click)="pesquisar()">
+    Pesquisar
+  </button>
+
+  <button type="button" class="btn-clear" (click)="limparPesquisa()">
+    Limpar
+  </button>
+</div>
+
+<div *ngIf="loading" class="info-box">
+  Carregando clientes...
+</div>
+
+<div *ngIf="error" class="info-box error">
+  {{ error }}
+</div>
+
+<div class="panel" *ngIf="!loading && clientesFiltrados.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CPF/CNPJ</th>
+        <th>Telefone</th>
+        <th>Celular</th>
+        <th>Bairro</th>
+        <th>Cidade</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let cliente of clientesPaginados">
+        <td>{{ cliente.idcliente }}</td>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.cpfcnpj }}</td>
+        <td>{{ cliente.telefone }}</td>
+        <td>{{ cliente.celular }}</td>
+        <td>{{ cliente.bairro }}</td>
+        <td>{{ cliente.cidade }}</td>
+        <td class="actions">
+          <a [routerLink]="['/clientes', cliente.idcliente]">Ver</a>
+          <a [routerLink]="['/clientes', cliente.idcliente, 'editar']">Editar</a>
+          <button type="button" (click)="excluir(cliente.idcliente)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button
+      type="button"
+      class="page-link"
+      *ngIf="currentPage > 1"
+      (click)="paginaAnterior()">
+      Anterior
+    </button>
+
+    <button
+      type="button"
+      class="page-link"
+      *ngFor="let page of pageNumbers"
+      [class.active]="page === currentPage"
+      (click)="goToPage(page)">
+      {{ page }}
+    </button>
+
+    <button
+      type="button"
+      class="page-link"
+      *ngIf="currentPage < totalPages"
+      (click)="proximaPagina()">
+      Próximo
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!loading && clientesFiltrados.length === 0" class="info-box">
+  Nenhum cliente encontrado.
+</div>

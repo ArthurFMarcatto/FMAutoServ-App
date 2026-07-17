@@ -1,0 +1,55 @@
+<section class="page-header">
+  <h1>{{ editando ? 'Editar Cliente' : 'Cadastrar Cliente' }}</h1>
+</section>
+
+<div *ngIf="error" class="info-box error">
+  {{ error }}
+</div>
+
+<form [formGroup]="form" (ngSubmit)="salvar()" class="form-card">
+  <div class="form-row">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input id="nome" type="text" formControlName="nome" />
+    </div>
+
+    <div class="form-group">
+      <label for="cpfcnpj">CPF/CNPJ</label>
+      <input id="cpfcnpj" type="text" formControlName="cpfcnpj" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="telefone">Telefone</label>
+      <input id="telefone" type="text" formControlName="telefone" />
+    </div>
+
+    <div class="form-group">
+      <label for="celular">Celular</label>
+      <input id="celular" type="text" formControlName="celular" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="endereco">Endereço</label>
+    <input id="endereco" type="text" formControlName="endereco" />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="bairro">Bairro</label>
+      <input id="bairro" type="text" formControlName="bairro" />
+    </div>
+
+    <div class="form-group">
+      <label for="cidade">Cidade</label>
+      <input id="cidade" type="text" formControlName="cidade" />
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <a routerLink="/clientes" class="btn-secondary">Cancelar</a>
+    <button type="submit" class="btn-primary">Salvar</button>
+  </div>
+</form>
