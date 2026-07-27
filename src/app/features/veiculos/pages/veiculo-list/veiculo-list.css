@@ -177,14 +177,14 @@ tbody tr:hover {
   background: #f4f6f8;
 }
 
-.link-cliente {
+.link-veiculo{
   color: #2f343a;
   text-decoration: none;
   font-weight: 700;
   cursor: pointer;
 }
 
-.link-cliente:hover {
+.link-veiculo:hover {
   color: #d61f26;
   text-decoration: underline;
 }

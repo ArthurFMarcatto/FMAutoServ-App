@@ -1,3 +1,5 @@
+import { Veiculo } from "./veiculo.model";
+
 export interface Cliente {
   idcliente?: number;
   nome: string;
@@ -7,4 +9,5 @@ export interface Cliente {
   endereco: string;
   bairro: string;
   cidade: string;
+  veiculos?: Veiculo[];
 }

@@ -69,16 +69,10 @@
   font-weight: 700;
   border: none;
   display: inline-block;
-  cursor: pointer;
 }
 
 .btn-primary:hover {
   background: #b3181e;
-}
-
-.btn-primary[disabled] {
-  background: #e3a3a6;
-  cursor: not-allowed;
 }
 
 .btn-secondary {
@@ -89,7 +83,6 @@
   font-weight: 700;
   border: 1px solid #cfd6dc;
   display: inline-block;
-  cursor: pointer;
 }
 
 .btn-secondary:hover {
@@ -106,91 +99,4 @@
   background: #fdecec;
   color: #a12626;
   border-color: #f3c8c8;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: #fff;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow-y: auto;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.modal-header h2 {
-  margin: 0;
-}
-
-.modal-header .btn-close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.tabela-veiculos {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.tabela-veiculos th,
-.tabela-veiculos td {
-  text-align: left;
-  padding: 0.5rem;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.modal-footer {
-  margin-top: 1rem;
-  text-align: right;
-}
-
-.btn-adicionar {
-  margin-top: 1rem;
-}
-
-.form-novo-veiculo {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e0e0e0;
-}
-
-.btn-whatsapp-icon {
-  width: 42px;
-  height: 42px;
-  border: none;
-  border-radius: 8px;
-  background: #25d366;
-  color: #fff;
-  cursor: pointer;
-  font-size: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-whatsapp-icon:hover {
-  background: #1ebe5d;
 }

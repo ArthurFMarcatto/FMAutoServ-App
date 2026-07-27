@@ -1,0 +1,108 @@
+<section class="page-header">
+  <h1>Veículos</h1>
+
+  <a routerLink="/veiculos/novo" class="btn-primary">
+    Cadastrar Veículo
+  </a>
+</section>
+
+<div class="search-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Pesquisar por placa"
+    (keyup.enter)="pesquisar()" />
+
+  <button type="button" class="btn-search" (click)="pesquisar()">
+    Pesquisar
+  </button>
+
+  <button type="button" class="btn-clear" (click)="limparPesquisa()">
+    Limpar
+  </button>
+</div>
+
+<div *ngIf="loading" class="info-box">
+  Carregando veículos...
+</div>
+
+<div *ngIf="error" class="info-box error">
+  {{ error }}
+</div>
+
+<div class="panel" *ngIf="!loading && veiculosFiltrados.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Modelo</th>
+        <th>Placa</th>
+        <th>Montadora</th>
+        <th>Ano</th>
+        <th>Cor</th>
+        <th>Cliente ID</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let veiculo of veiculosPaginados">
+        <td>
+          <a [routerLink]="['/veiculos', veiculo.idveiculo]" class="link-veiculo">
+            {{ veiculo.idveiculo }}
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/veiculos', veiculo.idveiculo]" class="link-veiculo">
+            {{ veiculo.modelo }}
+          </a>
+        </td> 
+        <td>
+          <a [routerLink]="['/veiculos', veiculo.idveiculo]" class="link-veiculo">
+            {{ veiculo.placa }}
+          </a>
+        </td> 
+        <td>{{ veiculo.montadora }}</td>
+        <td>{{ veiculo.ano }}</td>
+        <td>{{ veiculo.cor }}</td>
+        <td>{{ veiculo.clienteId }}</td>
+        <td class="actions">
+          <a [routerLink]="['/veiculos', veiculo.idveiculo]">Ver</a>
+          <a [routerLink]="['/veiculos', veiculo.idveiculo, 'editar']">Editar</a>
+          <button type="button" (click)="excluir(veiculo.idveiculo)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button
+      type="button"
+      class="page-link"
+      *ngIf="currentPage > 1"
+      (click)="paginaAnterior()">
+      Anterior
+    </button>
+
+    <button
+      type="button"
+      class="page-link"
+      *ngFor="let page of pageNumbers"
+      [class.active]="page === currentPage"
+      (click)="goToPage(page)">
+      {{ page }}
+    </button>
+
+    <button
+      type="button"
+      class="page-link"
+      *ngIf="currentPage < totalPages"
+      (click)="proximaPagina()">
+      Próximo
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!loading && veiculosFiltrados.length === 0" class="info-box">
+  Nenhum veículo encontrado.
+</div>

@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Veiculo } from '../models/veiculo.model';
+import { Veiculo } from '../../models/veiculo.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
+export class VeiculoService {
   private http = inject(HttpClient);
   private api = 'http://localhost:8080/api/veiculo';
 

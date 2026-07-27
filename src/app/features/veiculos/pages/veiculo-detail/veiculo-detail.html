@@ -1,0 +1,58 @@
+<section class="page-header">
+  <h1>Detalhes do Veículo</h1>
+</section>
+
+<div *ngIf="loading" class="info-box">
+  Carregando Veículo...
+</div>
+
+<div *ngIf="error" class="info-box error">
+  {{ error }}
+</div>
+
+<form *ngIf="!loading && veiculo" class="form-card">
+  <div class="form-row">
+    <div class="form-group">
+      <label for="idveiculo">ID</label>
+      <input id="idveiculo" type="text" [value]="veiculo.idveiculo" readonly />
+    </div>
+
+    <div class="form-group">
+      <label for="montadora">Montadora</label>
+      <input id="montadora" type="text" [value]="veiculo.montadora" readonly />
+    </div>
+
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="modelo">Modelo</label>
+      <input id="modelo" type="text" [value]="veiculo.modelo" readonly />
+    </div>
+    <div class="form-group">
+      <label for="placa">Placa</label>
+      <input id="placa" type="text" [value]="veiculo.placa" readonly />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="ano">Ano</label>
+      <input id="ano" type="text" [value]="veiculo.ano" readonly />
+    </div>
+
+    <div class="form-group">
+      <label for="cor">Cor</label>
+      <input id="cor" type="text" [value]="veiculo.cor" readonly />
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn-secondary" (click)="voltar()">
+      Voltar
+    </button>
+    <a [routerLink]="['/clientes', veiculo.clienteId]" class="btn-secondary">
+      Consultar Cliente
+    </a>
+    <a [routerLink]="['/veiculos', veiculo.idveiculo, 'editar']" class="btn-primary">Editar</a>
+  </div>

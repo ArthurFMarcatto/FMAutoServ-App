@@ -47,8 +47,16 @@
 
     <tbody>
       <tr *ngFor="let cliente of clientesPaginados">
-        <td>{{ cliente.idcliente }}</td>
-        <td>{{ cliente.nome }}</td>
+        <td>
+          <a [routerLink]="['/clientes', cliente.idcliente]" class="link-cliente">
+            {{ cliente.idcliente }}
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['/clientes', cliente.idcliente]" class="link-cliente">
+            {{ cliente.nome }}
+          </a>
+        </td>
         <td>{{ cliente.cpfcnpj }}</td>
         <td>{{ cliente.telefone }}</td>
         <td>{{ cliente.celular }}</td>

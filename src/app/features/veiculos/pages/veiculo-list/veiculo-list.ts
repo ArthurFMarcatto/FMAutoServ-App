@@ -1,23 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Cliente } from '../../../models/cliente.model';
-import { ClienteService } from '../../services/cliente.service';
+import { Veiculo } from '../../../models/veiculo.model';
+import { VeiculoService } from '../../service/veiculo.service';
 
 @Component({
-  selector: 'app-cliente-list',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './cliente-list.component.html',
-  styleUrl: './cliente-list.component.css'
+  selector: 'app-veiculo-list',
+  standalone:true,
+  imports: [CommonModule, FormsModule,RouterLink],
+  templateUrl: './veiculo-list.html',
+  styleUrl: './veiculo-list.css',
 })
-export class ClienteListComponent implements OnInit {
-  private clienteService = inject(ClienteService);
+export class VeiculoListComponent implements OnInit{
+  private veiculoService = inject(VeiculoService);
   private cdr = inject(ChangeDetectorRef);
 
-  clientes: Cliente[] = [];
-  clientesFiltrados: Cliente[] = [];
+  veiculos: Veiculo[] = [];
+  veiculosFiltrados: Veiculo[] = [];
   loading = true;
   error = '';
 
@@ -28,29 +28,28 @@ export class ClienteListComponent implements OnInit {
   visiblePages = 5;
 
   ngOnInit(): void {
-    this.carregarClientes();
+    this.carregarVeiculos();
   }
 
-  carregarClientes(): void {
+  carregarVeiculos(): void{
     this.loading = true;
-    this.error = '';
-
-    this.clienteService.findAll().subscribe({
+    this.error = '';   
+    
+    this.veiculoService.findAll().subscribe({
       next: (data) => {
-        this.clientes = data;
+        this.veiculos = data;
         this.aplicarFiltro();
         this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('ERRO CLIENTES:', err);
-        this.error = 'Erro ao carregar clientes.';
+        console.error('ERRO VEICULOS:', err);
+        this.error = 'Erro ao carregar veiculos.';
         this.loading = false;
         this.cdr.detectChanges();
       }
     });
   }
-
   pesquisar(): void {
     this.currentPage = 1;
     this.aplicarFiltro();
@@ -64,14 +63,14 @@ export class ClienteListComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  aplicarFiltro(): void {
+    aplicarFiltro(): void {
     const termo = this.searchTerm.trim().toLowerCase();
 
     if (!termo) {
-      this.clientesFiltrados = [...this.clientes];
+      this.veiculosFiltrados = [...this.veiculos];
     } else {
-      this.clientesFiltrados = this.clientes.filter((cliente) =>
-        (cliente.nome ?? '').toLowerCase().includes(termo)
+      this.veiculosFiltrados = this.veiculos.filter((veiculo) =>
+        (veiculo.placa ?? '').toLowerCase().includes(termo)
       );
     }
 
@@ -83,27 +82,26 @@ export class ClienteListComponent implements OnInit {
   excluir(id: number | undefined): void {
     if (!id) return;
 
-    const confirmou = confirm('Deseja realmente excluir este cliente?');
+    const confirmou = confirm('Deseja realmente excluir este veículo?');
     if (!confirmou) return;
 
-    this.clienteService.delete(id).subscribe({
-      next: () => this.carregarClientes(),
+    this.veiculoService.delete(id).subscribe({
+      next: () => this.carregarVeiculos(),
       error: (err) => {
         console.error('ERRO AO EXCLUIR:', err);
-        this.error = 'Erro ao excluir cliente.';
+        this.error = 'Erro ao excluir veículo.';
         this.cdr.detectChanges();
       }
     });
   }
-
   get totalPages(): number {
-    return Math.ceil(this.clientesFiltrados.length / this.pageSize);
+    return Math.ceil(this.veiculosFiltrados.length / this.pageSize);
   }
 
-  get clientesPaginados(): Cliente[] {
+  get veiculosPaginados(): Veiculo[] {
     const start = (this.currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
-    return this.clientesFiltrados.slice(start, end);
+    return this.veiculosFiltrados.slice(start, end);
   }
 
   get pageNumbers(): number[] {
@@ -124,7 +122,7 @@ export class ClienteListComponent implements OnInit {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
-  goToPage(page: number): void {
+    goToPage(page: number): void {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
     this.cdr.detectChanges();

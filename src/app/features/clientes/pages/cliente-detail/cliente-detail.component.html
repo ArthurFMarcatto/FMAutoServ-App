@@ -58,11 +58,126 @@
   </div>
 
   <div class="form-actions">
-    <a routerLink="/clientes" class="btn-secondary">Voltar</a>
-    <a [routerLink]="['/clientes', cliente.idcliente, 'veiculos']" class="btn-secondary">
+    <button type="button" class="btn-secondary" (click)="voltar()">
+      Voltar
+    </button>
+
+    <button type="button" class="btn-secondary" (click)="abrirPopupVeiculos()">
       Consultar Veículos
-    </a>
+    </button>
+
     <a [routerLink]="['/clientes', cliente.idcliente, 'editar']" class="btn-primary">Editar</a>
+
+    <button
+      type="button"
+      class="btn-whatsapp-icon"
+      (click)="abrirWhatsApp()"
+      title="Chamar no WhatsApp"
+      aria-label="Chamar no WhatsApp">
+      <i class="fa fa-whatsapp"></i>
+    </button>
   </div>
-  
+
+  <!-- Popup / Modal de Veículos -->
+  <div *ngIf="mostrarPopupVeiculos" class="modal-overlay" (click)="fecharPopupVeiculos()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Veículos do Cliente</h2>
+        <button type="button" class="btn-close" (click)="fecharPopupVeiculos()">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div *ngIf="!cliente.veiculos || cliente.veiculos.length === 0" class="info-box">
+          Nenhum veículo cadastrado.
+        </div>
+
+        <table *ngIf="cliente.veiculos && cliente.veiculos.length > 0" class="tabela-veiculos">
+          <thead>
+            <tr>
+              <th>Placa</th>
+              <th>Montadora</th>
+              <th>Modelo</th>
+              <th>Ano</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let veiculo of cliente.veiculos">
+              <td>{{ veiculo.placa }}</td>
+              <td>{{ veiculo.montadora }}</td>
+              <td>{{ veiculo.modelo }}</td>
+              <td>{{ veiculo.ano }}</td>
+              <td>
+                <a [routerLink]="['/veiculos', veiculo.idveiculo, 'editar']" class="btn-primary">
+                  Editar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button
+          type="button"
+          class="btn-secondary btn-adicionar"
+          *ngIf="!mostrarFormNovoVeiculo"
+          (click)="abrirFormNovoVeiculo()"
+        >
+          + Adicionar Veículo
+        </button>
+
+        <form
+          *ngIf="mostrarFormNovoVeiculo"
+          [formGroup]="novoVeiculoForm"
+          (ngSubmit)="salvarNovoVeiculo()"
+          class="form-novo-veiculo"
+        >
+          <div class="form-row">
+            <div class="form-group">
+              <label for="novaPlaca">Placa</label>
+              <input id="novaPlaca" type="text" formControlName="placa" />
+            </div>
+
+            <div class="form-group">
+              <label for="novaMontadora">Montadora</label>
+              <input id="novaMontadora" type="text" formControlName="montadora" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="novoModelo">Modelo</label>
+              <input id="novoModelo" type="text" formControlName="modelo" />
+            </div>
+
+            <div class="form-group">
+              <label for="novoAno">Ano</label>
+              <input id="novoAno" type="number" formControlName="ano" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="novaCor">Cor</label>
+            <input id="novaCor" type="text" formControlName="cor" />
+          </div>
+
+          <div *ngIf="erroNovoVeiculo" class="info-box error">
+            {{ erroNovoVeiculo }}
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="cancelarNovoVeiculo()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary" [disabled]="novoVeiculoForm.invalid || salvandoVeiculo">
+              {{ salvandoVeiculo ? 'Salvando...' : 'Salvar Veículo' }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="fecharPopupVeiculos()">Fechar</button>
+      </div>
+    </div>
+  </div>
 </form>
