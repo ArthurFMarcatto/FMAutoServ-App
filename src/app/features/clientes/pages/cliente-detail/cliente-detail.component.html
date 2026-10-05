@@ -13,49 +13,43 @@
 <form *ngIf="!loading && cliente" class="form-card">
   <div class="form-row">
     <div class="form-group">
-      <label for="idcliente">ID</label>
-      <input id="idcliente" type="text" [value]="cliente.idcliente" readonly />
-    </div>
-
-    <div class="form-group">
       <label for="nome">Nome</label>
       <input id="nome" type="text" [value]="cliente.nome" readonly />
     </div>
-  </div>
-
-  <div class="form-row">
     <div class="form-group">
       <label for="cpfcnpj">CPF/CNPJ</label>
       <input id="cpfcnpj" type="text" [value]="cliente.cpfcnpj" readonly />
     </div>
-
-    <div class="form-group">
-      <label for="telefone">Telefone</label>
-      <input id="telefone" type="text" [value]="cliente.telefone" readonly />
-    </div>
   </div>
 
   <div class="form-row">
     <div class="form-group">
+      <label for="telefone">Telefone</label>
+      <input id="telefone" type="text" [value]="cliente.telefone" readonly />
+    </div>
+    <div class="form-group">
       <label for="celular">Celular</label>
       <input id="celular" type="text" [value]="cliente.celular" readonly />
     </div>
-
-    <div class="form-group">
-      <label for="cidade">Cidade</label>
-      <input id="cidade" type="text" [value]="cliente.cidade" readonly />
-    </div>
   </div>
-
+  
   <div class="form-group">
     <label for="endereco">Endereço</label>
     <input id="endereco" type="text" [value]="cliente.endereco" readonly />
   </div>
 
-  <div class="form-group">
-    <label for="bairro">Bairro</label>
-    <input id="bairro" type="text" [value]="cliente.bairro" readonly />
+  <div class="form-row">
+    <div class="form-group">
+      <label for="cidade">Cidade</label>
+      <input id="cidade" type="text" [value]="cliente.cidade" readonly />
+    </div>
+    <div class="form-group">
+      <label for="bairro">Bairro</label>
+      <input id="bairro" type="text" [value]="cliente.bairro" readonly />
+    </div>
   </div>
+
+
 
   <div class="form-actions">
     <button type="button" class="btn-secondary" (click)="voltar()">
@@ -74,7 +68,7 @@
       (click)="abrirWhatsApp()"
       title="Chamar no WhatsApp"
       aria-label="Chamar no WhatsApp">
-      <i class="fa fa-whatsapp"></i>
+      <img src="/whatsapp-icon.png" alt="" />
     </button>
   </div>
 

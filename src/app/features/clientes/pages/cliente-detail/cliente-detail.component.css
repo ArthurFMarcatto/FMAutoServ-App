@@ -178,19 +178,19 @@
 }
 
 .btn-whatsapp-icon {
-  width: 42px;
-  height: 42px;
+  padding: 0;
   border: none;
-  border-radius: 8px;
-  background: #25d366;
-  color: #fff;
+  background: transparent;
   cursor: pointer;
-  font-size: 20px;
-  display: inline-flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
 }
 
-.btn-whatsapp-icon:hover {
-  background: #1ebe5d;
+.btn-whatsapp-icon img {
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+  object-fit: contain;
+  border: none;
 }

@@ -118,7 +118,7 @@ export class ClienteDetailComponent implements OnInit {
 
     const novoVeiculo: Veiculo = {
       ...this.novoVeiculoForm.value,
-      idcliente: this.cliente.idcliente,
+      clienteId: this.cliente.idcliente,
     };
 
     this.veiculoService.create(novoVeiculo).subscribe({
